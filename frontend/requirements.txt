@@ -1,0 +1,3 @@
+# UI only. Install the root lock file for the FastAPI backend.
+streamlit==1.65.0
+requests==2.34.2

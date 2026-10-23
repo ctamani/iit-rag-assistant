@@ -1,0 +1,556 @@
+/* 1. Design tokens and typography */
+:root {
+    color-scheme: light;
+    --font-family: IITPoppins, Arial, sans-serif;
+    --ink: #242d3d;
+    --red: #ff172a;
+    --surface: #fff;
+    --bot-bubble: #f0f2f5;
+    --user-bubble: #e4f3ff;
+    --source-link: #345d85;
+}
+
+
+.stApp, .stApp input, .stApp button, .sources {
+    font-family: var(--font-family);
+}
+
+/* 2. Global page layout */
+
+/* st-key classes are generated from our named st.container keys. */
+
+.stMain {
+    scrollbar-width: none;
+}
+
+.stMain::-webkit-scrollbar {
+    display: none;
+}
+
+.stApp {
+    background: radial-gradient(ellipse at 48% 44%, #f2faff 0%, #eaf6ff 85%);
+    color: var(--ink);
+}
+
+[data-testid="stHeader"], [data-testid="stToolbar"], #MainMenu, footer {
+    display: none;
+}
+
+.stMainBlockContainer {
+    max-width: 1320px;
+    padding: 100px 24px 70px;
+}
+
+.stMainBlockContainer > [data-testid="stVerticalBlock"] {
+    gap: 0;
+}
+
+.page-title {
+    margin: 0 0 50px !important;
+    padding: 0 !important;
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: 50px !important;
+    line-height: 64px !important;
+    font-weight: 700 !important;
+    letter-spacing: -1px;
+    color: #202b3d !important;
+}
+
+.st-key-chat_grid > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {
+    gap: 34px;
+}
+
+.user-message {
+    justify-content: flex-end;
+    padding-left: 106px;
+    gap: 15px;
+}
+
+.error-bubble {
+    border-left: 3px solid var(--red);
+    background: #fff1f2;
+}
+
+[data-testid="stCaptionContainer"] {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.st-key-chat_single {
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+}
+
+/* 3. Chat panel layout and headers */
+
+/* Streamlit layout wrappers require scoped data-testid selectors. */
+
+.st-key-panel_traffic_cop, .st-key-panel_linear {
+    background: var(--surface);
+    border: 1px solid #e0e4e9;
+    border-radius: 10px;
+    overflow: hidden;
+    gap: 0 !important;
+    box-shadow: 0 1px 2px #263e5510;
+}
+
+.panel-heading {
+    margin: 0 !important;
+    padding: 16px 22px 14px !important;
+    min-height: 64px;
+    box-sizing: border-box;
+    background: linear-gradient(112deg, #fb3b43, #f13440);
+    color: #fff !important;
+    font-family: var(--font-family);
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    line-height: 34px !important;
+}
+
+.st-key-body_traffic_cop, .st-key-body_linear {
+    padding: 22px 23px 25px;
+    gap: 20px !important;
+}
+
+/* 4. Conversation messages and bubbles */
+
+[class*="st-key-history_"] {
+    scrollbar-width: none;
+    gap: 20px;
+}
+
+[class*="st-key-message_"] {
+    gap: 8px !important;
+}
+
+.conversation {
+    height: auto;
+    overflow-y: visible;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: var(--font-family);
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.bubble {
+    border-radius: 12px;
+    padding: 16px 20px;
+    background: var(--bot-bubble);
+    color: #323641;
+    font-size: 19px;
+    line-height: 29px;
+    letter-spacing: -0.15px;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    min-width: 0;
+}
+
+.user-message .bubble {
+    background: var(--user-bubble);
+    flex: 1;
+}
+
+.bot-message .bubble {
+    flex: 1;
+    margin-right: 63px;
+}
+
+/* 5. Avatars */
+
+.person-icon {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 32px;
+}
+
+.person-icon::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #8d97a3;
+    left: 8px;
+    top: 1px;
+}
+
+.person-icon::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 13px;
+    border-radius: 14px 14px 3px 3px;
+    background: #8d97a3;
+    left: 2.5px;
+    bottom: 1px;
+}
+
+.avatar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fb, #e9edf1);
+    border: 1px solid #e0e4e9;
+    border-radius: 50%;
+}
+
+.bot-avatar {
+    width: 77px;
+    height: 77px;
+}
+
+.bot-avatar img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.user-avatar {
+    width: 56px;
+    height: 56px;
+    margin-top: 16px;
+}
+
+/* 6. Sources and citations */
+
+.document-icon {
+    width: 23px;
+    height: 28px;
+    background: #293345;
+    border-radius: 2px;
+    position: relative;
+    flex-shrink: 0;
+    clip-path: polygon(0 0, 62% 0, 100% 32%, 100% 100%, 0 100%);
+}
+
+.document-icon::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 1px;
+    right: 1px;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.document-icon::after {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    width: 10px;
+    height: 2px;
+    background: white;
+    box-shadow: 0 4px white, 0 8px white;
+}
+
+.sources {
+    background: #f7f8fa;
+    border: 1px solid #e2e6ed;
+    border-radius: 9px;
+    color: #343b4c;
+    font-size: 22px;
+}
+
+.sources summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 23px;
+    min-height: 71px;
+    padding: 14px 23px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.sources summary::-webkit-details-marker {
+    display: none;
+}
+
+.chevron {
+    margin-left: auto;
+    width: 12px;
+    height: 12px;
+    border-right: 3px solid #293345;
+    border-bottom: 3px solid #293345;
+    transform: translateY(-3px) rotate(45deg);
+}
+
+.sources[open] .chevron {
+    transform: translateY(3px) rotate(225deg);
+}
+
+.source-links {
+    padding: 0 22px 15px;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.source-links a {
+    color: var(--source-link);
+}
+
+.source-links ol {
+    margin: 0;
+    padding-left: 22px;
+}
+
+.source-scope,
+.source-unavailable {
+    display: block;
+    font-size: 13px;
+    color: #596577;
+}
+.source-links li + li {
+    margin-top: 8px;
+}
+
+/* 7. Feedback controls */
+
+/* Feedback stays inside the exact answer's keyed message container. */
+[class*="st-key-feedback_"] {
+    margin-left: 97px;
+    margin-right: 63px;
+    gap: 6px !important;
+}
+[class*="st-key-feedback_"] button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid #dce2ed;
+    border-radius: 8px;
+    color: #596577;
+    background: var(--surface);
+}
+[class*="st-key-feedback_"] button p {
+    font-size: 14px;
+    white-space: nowrap;
+}
+[class*="st-key-feedback_"] button:hover {
+    color: #b51024;
+    border-color: #b51024;
+    background: #fff1f2;
+}
+[class*="st-key-feedback_"] [data-testid="stForm"] {
+    padding: 12px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+[class*="st-key-feedback_"] [data-testid="stCaptionContainer"] {
+    text-align: left;
+    margin-top: 0;
+}
+
+/* 8. Inputs, buttons, and interaction states */
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] {
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] [data-testid="stHorizontalBlock"] {
+    gap: 14px;
+    flex-wrap: nowrap !important;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] [data-testid="stTextInputRootElement"] {
+    border: 2px solid #dce2ed;
+    background: var(--surface);
+    border-radius: 10px;
+    height: 65px;
+    box-shadow: none;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] input {
+    font-size: 21px;
+    color: #303746;
+    padding: 14px 16px;
+    -webkit-text-fill-color: #303746;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] input::placeholder {
+    color: #8b95ad;
+    opacity: 1;
+    -webkit-text-fill-color: #8b95ad;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] button {
+    height: 65px;
+    min-height: 65px;
+    border: 1px solid #ff1428;
+    border-radius: 10px;
+    background: linear-gradient(120deg, #ff1a2c, #f80d21);
+    color: white;
+    padding: 0 18px;
+    opacity: 1;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] button p {
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] button:hover {
+    background: #e9091b;
+    border-color: #e9091b;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] button:disabled {
+    color: white;
+    opacity: 1;
+    cursor: default;
+}
+
+:is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] [data-testid="InputInstructions"] {
+    display: none;
+}
+
+summary:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 3px solid #3565b8 !important;
+    outline-offset: 3px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid #3565b8;
+    outline-offset: 2px;
+}
+button:disabled {
+    cursor: not-allowed;
+}
+
+/* 9. Responsive layouts */
+
+@media (max-width: 1150px) {
+
+    .stMainBlockContainer {
+        padding-top: 65px;
+    }
+
+    .bubble {
+        font-size: 19px;
+    }
+
+    .user-message {
+        padding-left: 65px;
+    }
+
+    .bot-message .bubble {
+        margin-right: 25px;
+    }
+
+    .message {
+        gap: 12px;
+    }
+
+    .bot-avatar {
+        width: 58px;
+        height: 58px;
+    }
+
+    .bot-avatar img {
+        width: 46px;
+        height: 46px;
+    }
+
+    .user-avatar {
+        width: 44px;
+        height: 44px;
+    }
+
+    [class*="st-key-feedback_"] {
+        margin-left: 70px;
+        margin-right: 25px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .stMainBlockContainer {
+        padding: 36px 16px;
+    }
+
+    .page-title {
+        font-size: 36px !important;
+        line-height: 44px !important;
+        margin-bottom: 28px !important;
+    }
+
+    .st-key-chat_grid > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .st-key-chat_grid > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+        width: 100% !important;
+        flex: 1 1 auto !important;
+    }
+
+    .panel-heading {
+        font-size: 27px !important;
+    }
+
+    .st-key-body_traffic_cop, .st-key-body_linear {
+        padding: 18px 16px;
+        gap: 16px !important;
+    }
+
+    .user-message {
+        padding-left: 40px;
+    }
+
+    .bot-message .bubble {
+        margin-right: 0;
+    }
+
+    .bubble {
+        padding: 13px 16px;
+    }
+
+    .sources {
+        font-size: 19px;
+    }
+
+    .sources summary {
+        min-height: 62px;
+        gap: 16px;
+        padding: 12px 17px;
+    }
+
+    :is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] [data-testid="stColumn"]:first-child {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        width: auto !important;
+    }
+
+    :is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] [data-testid="stColumn"]:last-child {
+        flex: 0 0 82px !important;
+        min-width: 82px !important;
+        width: 82px !important;
+    }
+
+    :is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] input, :is(.st-key-composer_traffic_cop, .st-key-composer_linear) [data-testid="stForm"] button p {
+        font-size: 18px;
+    }
+
+    [class*="st-key-feedback_"] {
+        margin-left: 70px;
+        margin-right: 0;
+    }
+}
