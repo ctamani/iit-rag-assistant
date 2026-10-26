@@ -55,3 +55,54 @@ jobs:
 
       - name: Build frontend image
         run: docker build -f Dockerfile.frontend -t iit-rag-frontend:ci .
+
+
+  publish:
+    name: Publish Docker images
+    needs: [tests, docker]
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate image version
+        id: version
+        run: |
+          echo "tag=sha-${GITHUB_SHA::12}" >> "$GITHUB_OUTPUT"
+
+      - name: Build backend release image
+        run: |
+          docker build \
+            -f Dockerfile \
+            -t ghcr.io/ctamani/iit-rag-assistant-backend:${{ steps.version.outputs.tag }} \
+            .
+
+      - name: Build frontend release image
+        run: |
+          docker build \
+            -f Dockerfile.frontend \
+            -t ghcr.io/ctamani/iit-rag-assistant-frontend:${{ steps.version.outputs.tag }} \
+            .
+
+      - name: Publish backend image
+        run: |
+          docker push ghcr.io/ctamani/iit-rag-assistant-backend:${{ steps.version.outputs.tag }}
+
+      - name: Publish frontend image
+        run: |
+          docker push ghcr.io/ctamani/iit-rag-assistant-frontend:${{ steps.version.outputs.tag }}
