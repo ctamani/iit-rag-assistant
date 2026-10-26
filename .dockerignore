@@ -1,0 +1,66 @@
+# Git
+.git/
+
+# Python environments
+.venv/
+venv/
+env/
+.env/
+
+# Python caches and tests
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_temp/
+pytest-tmp/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Secrets and credentials
+.env
+.env.*
+.envrc
+.streamlit/secrets.toml
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account.json
+
+# Private RAG data
+backend/data/
+.retrieval-verification/
+build-review/
+retrieval-evaluation.json
+*.faiss
+*.zip
+
+# Local application state
+session_memory.json
+feedback_log.jsonl
+feedback.jsonl
+
+# Build output and temporary files
+build/
+dist/
+*.egg-info/
+logs/
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Legacy code
+backend/app/pipelines/traffic_cop/old_traffic_cop.py
+backend/app/pipelines/old_traffic_cop.py
