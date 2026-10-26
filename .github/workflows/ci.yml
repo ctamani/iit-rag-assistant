@@ -1,0 +1,57 @@
+
+name: RAG Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+      - feature/github-actions-cicd
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Run Python tests
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r frontend/requirements.txt pytest
+
+      - name: Run automated tests
+        run: |
+          python -m pytest \
+            tests/test_clarification.py \
+            tests/test_clarification_replies.py \
+            tests/test_run_traffic_cop.py \
+            tests/test_llm_answers.py \
+            -q
+
+  docker:
+    name: Build Docker images
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Build backend image
+        run: docker build -f Dockerfile -t iit-rag-backend:ci .
+
+      - name: Build frontend image
+        run: docker build -f Dockerfile.frontend -t iit-rag-frontend:ci .
